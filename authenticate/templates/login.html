@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-blue-100 to-red-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white p-8 rounded-md shadow-md max-w-md w-full">
+        <div class="flex justify-center p-0 border border-gray-300 rounded mb-6">
+            <svg width="75" height="75" viewBox="0 0 1238 814" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M350.469 5.21484L439.824 283.047L634.648 21.8164C641.159 13.0273 646.042 7.33073 649.297 4.72656C652.552 2.1224 657.435 0.820312 663.945 0.820312C670.456 0.820312 678.757 7.81901 688.848 21.8164L870.488 280.117L958.379 5.21484H1237.68L982.793 764.98C971.725 797.533 953.008 813.809 926.641 813.809C900.273 813.809 876.673 798.835 855.84 768.887L637.578 453.945L402.715 769.863C381.556 797.858 357.956 811.855 331.914 811.855C305.872 811.855 286.829 795.579 274.785 763.027L0.371094 5.21484H350.469Z"
+                    fill="#EF4444" fill-opacity="0.85" />
+            </svg>
+        </div>
+        <h2 class="text-2xl text-gray-400 font-semibold mb-4">Login to your account</h2>
+        <form>
+            <div class="mb-4">
+                <label for="ecode" class="block text-gray-400 mb-2 font-semibold">Employee ID</label>
+                <input type="text" id="ecode" name="ecode"
+                    class="w-full text-gray-200 p-2 border hover:border-red-500 rounded-md" placeholder="DRYMSD_WL">
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-400 mb-2 font-semibold">Password</label>
+                <input type="password" id="password" name="password"
+                    class="w-full text-gray-200 p-2 border hover:border-red-500 rounded-md" placeholder="********">
+            </div>
+            <button type="submit"
+                class="w-full bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-500">Login</button>
+        </form>
+        <p class="mt-4 text-center">Forgot password? <a href="{% url 'forgot_password_view' %}"
+                class="text-red-500">Recover it</a></p>
+    </div>
+
+</body>
+
+</html>

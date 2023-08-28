@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}
+Dashbaord
+{% endblock %}
+{% block body %}
+<!-- Main content -->
+<main class="flex-1 p-5 overflow-hidden overflow-y-scroll">
+  <p class="text-gray-500">Dashboard &rarr; <span class="text-red-500">Patients</span></p>
+  <div class="container mx-auto p-4">
+    <input id="searchInput" type="text" class="w-full px-4 py-2 border rounded mb-4" placeholder="Search patient data">
+
+    <table class="min-w-full">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="py-2 px-4 border">ID</th>
+          <th class="py-2 px-4 border">Name</th>
+          <th class="py-2 px-4 border">Age</th>
+          <th class="py-2 px-4 border">Condition</th>
+        </tr>
+      </thead>
+      <tbody id="patientTable">
+        <!-- Add patient data rows here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const patientTable = document.getElementById('patientTable');
+
+    // Replace this with your actual patient data
+    const patientData = [
+      { id: 1, name: 'John Doe', age: 32, condition: 'Fever' },
+      { id: 2, name: 'Jane Smith', age: 45, condition: 'Cough' },
+      { id: 3, name: 'Michael Johnson', age: 28, condition: 'Headache' },
+      { id: 4, name: 'Emily Davis', age: 57, condition: 'Fatigue' },
+      { id: 5, name: 'David Brown', age: 36, condition: 'Sore Throat' },
+      { id: 6, name: 'Sarah Miller', age: 22, condition: 'Stomachache' },
+      { id: 7, name: 'Robert Wilson', age: 49, condition: 'Fever' },
+      { id: 8, name: 'Linda Anderson', age: 62, condition: 'Cough' },
+      { id: 9, name: 'William Martinez', age: 33, condition: 'Headache' },
+      { id: 10, name: 'Jennifer Taylor', age: 28, condition: 'Fatigue' },
+      { id: 11, name: 'Daniel Clark', age: 41, condition: 'Sore Throat' },
+      { id: 12, name: 'Amanda Turner', age: 29, condition: 'Cough' },
+      { id: 13, name: 'James White', age: 54, condition: 'Fever' },
+      { id: 14, name: 'Melissa Harris', age: 39, condition: 'Stomachache' },
+      { id: 15, name: 'Christopher Robinson', age: 47, condition: 'Headache' },
+      { id: 16, name: 'Laura Jackson', age: 30, condition: 'Fatigue  gckwc mv mdhbxef mxnb xf mxjhvkdhb,n d,hbkxrhb,man d,b bchgv,ns dhjw,hb ' },
+      { id: 17, name: 'Matthew Martinez', age: 25, condition: 'Cough' },
+      { id: 18, name: 'Elizabeth Harris', age: 63, condition: 'Fever' },
+      { id: 19, name: 'Joshua Davis', age: 31, condition: 'Headache' },
+      { id: 20, name: 'Sophia Johnson', age: 27, condition: 'Sore Throat' },
+
+      // Add more patient data
+    ];
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const filteredData = patientData.filter(patient =>
+        patient.name.toLowerCase().includes(searchTerm) ||
+        patient.condition.toLowerCase().includes(searchTerm)
+      );
+
+      renderTable(filteredData);
+    });
+
+    function renderTable(data) {
+      patientTable.innerHTML = '';
+      data.forEach(patient => {
+        const row = `
+                            <tr class="bg-white">
+                                <td class="py-2 px-4 border">${patient.id}</td>
+                                <td class="py-2 px-4 border">${patient.name}</td>
+                                <td class="py-2 px-4 border">${patient.age}</td>
+                                <td class="py-2 px-4 border">${patient.condition}</td>
+                            </tr>
+                        `;
+        patientTable.innerHTML += row;
+      });
+    }
+
+    // Initial rendering
+    renderTable(patientData);
+  </script>
+</main>
+<!-- End main content -->
+{% endblock %}

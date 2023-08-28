@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-blue-100 to-red-100 flex items-center justify-center h-screen">
+
+    <div class="bg-white p-8 rounded-md shadow-md max-w-md w-full">
+        <div class="flex justify-center p-0 border border-gray-300 rounded mb-6">
+            <!-- Your logo or image here -->
+        </div>
+        <h2 class="text-2xl text-gray-400 font-semibold mb-4">OTP Verification</h2>
+        <p class="mb-4 text-gray-400">An OTP has been sent to your email. Please enter the OTP to continue.</p>
+        <form>
+            <div class="mb-4">
+                <label for="otp" class="block text-gray-400 mb-2 font-semibold">OTP</label>
+                <input type="text" id="otp" name="otp"
+                    class="w-full text-gray-200 p-2 border hover:border-red-500 rounded-md" placeholder="Enter OTP">
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-400 mb-2 font-semibold">New password</label>
+                <input type="password" id="password" name="password"
+                    class="w-full text-gray-200 p-2 border hover:border-red-500 rounded-md" placeholder="********">
+            </div>
+            <div class="mb-4">
+                <label for="cpassword" class="block text-gray-400 mb-2 font-semibold">Confirm password</label>
+                <input type="password" id="cpassword" name="cpassword"
+                    class="w-full text-gray-200 p-2 border hover:border-red-500 rounded-md" placeholder="********">
+            </div>
+            <button type="submit" class="w-full bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-500">Verify
+                OTP</button>
+        </form>
+        <p class="mt-4 text-center">Didn't receive the OTP? <a href="#" class="text-red-500">Resend</a></p>
+    </div>
+
+</body>
+
+</html>
