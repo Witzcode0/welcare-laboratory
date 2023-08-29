@@ -22,6 +22,9 @@ def payments_view(request):
 def staff_view(request):
     return render(request, 'staff.html')
 
+def doctors_view(request):
+    return render(request, 'doctors.html')
+
 def maintainance_view(request):
     return render(request, 'maintainance.html')
 

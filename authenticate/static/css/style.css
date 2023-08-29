@@ -1,6 +1,10 @@
 :root{
-    --icon:#9fa6b1;
-    --red:#ef4444;
-    --redLight:#f58f8f;
+    --LightGray:#9fa6b1;
+    --DarkGray: #414042;
+    --LightRed:#f58f8f;
+    --DarkRed:#ef4444;
+    --LightBlue:#77a7b2;
+    --DarkBlue:#135d7d;
+    
 }
 
