@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block body %}
+<main class="flex-1 p-5 overflow-hidden overflow-y-scroll">
+    <p class="text-gray-500">Dashboard &rarr; <span class="text-red-500">Wallet</span></p>
+    <div class="flex flex-col md:flex-row">
+        <!-- Main Content Section -->
+        <div class="md:w-3/4 pr-4 mb-4 md:mb-0">
+            <!-- Balance Section -->
+            <div class="bg-white p-4 rounded shadow-md mb-4">
+                <div class="flex flex-wrap -mx-4">
+                    <div class="w-full md:w-1/3 px-4 mb-4">
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">Total Expense</h3>
+                            <p class="text-red-500 text-xl font-semibold">$150,000</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 px-4 mb-4">
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">Total Expense</h3>
+                            <p class="text-red-500 text-xl font-semibold">$150,000</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 px-4 mb-4">
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">Total Expense</h3>
+                            <p class="text-red-500 text-xl font-semibold">$150,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Transaction History Section -->
+            <div class="bg-white p-4 rounded shadow-md">
+                <h2 class="text-xl font-semibold mb-2">Transaction History</h2>
+                <ul>
+                    <li class="mb-4">
+                        <div class="grid grid-cols-4 gap-1 font-semibold">
+                            <div>Date</div>
+                            <div>Amount</div>
+                            <div>Withdrawn By</div>
+                            <div>Reason</div>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <div class="grid grid-cols-4 gap-1">
+                            <div class="text-gray-600">2023-08-31</div>
+                            <div class="text-green-600">+$100.00</div>
+                            <div class="text-gray-600">John Doe</div>
+                            <div class="text-gray-600">Payment received</div>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <div class="grid grid-cols-4 gap-1">
+                            <div class="text-gray-600">2023-08-30</div>
+                            <div class="text-red-600">-$50.00</div>
+                            <div class="text-gray-600">Jane Smith</div>
+                            <div class="text-gray-600">Purchase</div>
+                        </div>
+                    </li>
+                    <li class="mb-2">
+                        <div class="grid grid-cols-4 gap-1">
+                            <div class="text-gray-600 ">2023-08-27</div>
+                            <div class="text-red-600">-$70.00</div>
+                            <div class="text-gray-600">Jane Smith</div>
+                            <div class="text-gray-600">petrol</div>
+                        </div>
+                    </li>
+                    <!-- Add more transaction history items here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar Section -->
+        <div class="md:w-1/4">
+            <!-- Withdraw/Borrow Section -->
+            <div class="bg-white p-4 rounded shadow-md">
+                <h2 class="text-xl font-semibold mb-2">Withdraw/Borrow</h2>
+                <form>
+                    <div class="mb-4">
+                        <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                        <input type="text" id="amount" name="amount" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-300">
+                    </div>
+                    <div class="mb-4">
+                        <label for="note" class="block text-sm font-medium text-gray-700">Note</label>
+                        <textarea id="note" name="note" rows="2" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-300"></textarea>
+                    </div>
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-300">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
