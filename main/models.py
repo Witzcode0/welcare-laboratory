@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
-from .helpers import generate_employee_id, generate_employee_password
-# Create your models here.
+import string
+import random
 
 
 class BaseModel(models.Model):
@@ -23,28 +23,36 @@ class EmployeeRole(BaseModel):
         super(EmployeeRole, self).save(*args, **kwargs)
 
 class Employee(models.Model):
-    employee_id = models.CharField(max_length=10)
+    employee_id = models.CharField(max_length=10, unique=True, editable=False)
     role = models.ForeignKey(EmployeeRole, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=200)
     mobile = models.CharField(max_length=100)
-    password = models.CharField(max_length=200)
+    password = models.CharField(max_length=200, blank=True)  # Allow password to be blank initially
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.employee_id} - {self.last_name.capitalize()} {self.first_name.capitalize()}"
+        return self.employee_id
 
     def save(self, *args, **kwargs):
         if not self.employee_id:
-            self.employee_id = generate_employee_id(digit=6)
+            # Generate the custom ID if it doesn't exist
+            last_id = Employee.objects.all().order_by('-id').first()
+            if last_id:
+                last_id = last_id.employee_id
+                last_id = last_id.replace('WL', '')
+                last_id = int(last_id)
+                new_id = f'WL{str(last_id + 1).zfill(4)}'
+            else:
+                new_id = 'WL0001'
+            self.employee_id = new_id
+
         if not self.password:
-            self.password = generate_employee_password(digit=8)
-        
-        # Convert first_name, last_name and email to lowercase before saving
-        self.first_name = self.first_name.lower()
-        self.last_name = self.last_name.lower()
-        self.email = self.email.lower()
-        
+            # Generate a random password
+            password_characters = string.ascii_letters + string.digits
+            random_password = ''.join(random.choice(password_characters) for i in range(6))
+            self.password = random_password.upper() + "_CODE"
+
         super(Employee, self).save(*args, **kwargs)
