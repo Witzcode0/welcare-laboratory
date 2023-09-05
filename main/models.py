@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from .helpers import generate_employee_id
+from .helpers import generate_employee_id, generate_employee_password
 # Create your models here.
 
 
@@ -23,15 +23,13 @@ class EmployeeRole(BaseModel):
         super(EmployeeRole, self).save(*args, **kwargs)
 
 class Employee(models.Model):
-    employee_id = models.CharField(primary_key=True, default=generate_employee_id(
-        digit=6), unique=True, max_length=10)
+    employee_id = models.CharField(max_length=10)
     role = models.ForeignKey(EmployeeRole, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=200)
     mobile = models.CharField(max_length=100)
-    password = models.CharField(
-        max_length=200, default=generate_employee_id(digit=8))
+    password = models.CharField(max_length=200)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
 
@@ -39,8 +37,14 @@ class Employee(models.Model):
         return f"{self.employee_id} - {self.last_name.capitalize()} {self.first_name.capitalize()}"
 
     def save(self, *args, **kwargs):
+        if not self.employee_id:
+            self.employee_id = generate_employee_id(digit=6)
+        if not self.password:
+            self.password = generate_employee_password(digit=8)
+        
         # Convert first_name, last_name and email to lowercase before saving
         self.first_name = self.first_name.lower()
         self.last_name = self.last_name.lower()
         self.email = self.email.lower()
+        
         super(Employee, self).save(*args, **kwargs)

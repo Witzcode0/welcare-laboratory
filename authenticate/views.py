@@ -37,6 +37,9 @@ def wallet_view(request):
 def profile_view(request):
     return render(request, 'profile.html')
 
+def notification_view(request):
+    return render(request, 'notification.html')
+
 def maintainance_view(request):
     return render(request, 'maintainance.html')
 

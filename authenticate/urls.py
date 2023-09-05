@@ -13,5 +13,6 @@ urlpatterns = [
     path('doctors_view/', doctors_view, name='doctors_view'),
     path('wallet_view/', wallet_view, name='wallet_view'),
     path('profile_view/', profile_view, name='profile_view'),
+    path('notification_view/', notification_view, name='notification_view'),
     path('maintainance_view/', maintainance_view, name='maintainance_view')
 ]
