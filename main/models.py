@@ -27,8 +27,8 @@ class Employee(models.Model):
     role = models.ForeignKey(EmployeeRole, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=200)
-    mobile = models.CharField(max_length=100)
+    email = models.EmailField(max_length=200, unique=True)
+    mobile = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=200, blank=True)  # Allow password to be blank initially
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)

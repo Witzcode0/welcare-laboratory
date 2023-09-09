@@ -2,3 +2,4 @@ SVG Download : https://www.svgrepo.com/svg/429880/patient-bed-hospital
 
 Tailwind Component : https://tailwindcomponents.com/component/responsive-dashboard-layout
  
+Save image on cloud and use :         <!-- upload image on http://imageshack.com/signup -->
