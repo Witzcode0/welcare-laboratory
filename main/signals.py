@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.conf import settings
 from .models import Employee  # Replace with your actual model
 
 @receiver(post_save, sender=Employee)
@@ -16,7 +17,7 @@ def send_data_saved_email(sender, instance, created, **kwargs):
 
         subject = f"Employee Login Credentials for {instance.first_name} {instance.last_name} at Welcare Laboratory"
         message = 'Your data has been saved successfully.'
-        from_email = 'brijeshgondaliya.tops@gmail.com'  # Replace with your sender email
+        from_email = settings.EMAIL_HOST_USER  # Replace with your sender email
         recipient_list = [f'{instance.email}']  # Replace with the recipient's email
 
         context = {
