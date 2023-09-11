@@ -1,7 +1,6 @@
 import uuid
 import os
 
-
 def custom_file_name(instance, filename):
     """
     This function return unique file-name

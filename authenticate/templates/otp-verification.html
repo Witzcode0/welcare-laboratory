@@ -11,9 +11,9 @@
   </head>
 
   <body
-    class="bg-gradient-to-r from-blue-100 to-red-100 flex items-center justify-center h-screen"
+    class="bg-gradient-to-r from-blue-100 to-red-100 flex items-center justify-center h-screen py-8" style="margin-top: 100px;"
   >
-    <div class="bg-white p-8 rounded-md shadow-md max-w-md w-full">
+    <div class="bg-white p-8 rounded-md shadow-md max-w-md w-full my-10">
       <div class="flex justify-center p-0 border border-gray-300 rounded mb-6">
         <!-- Your logo or image here -->
       </div>
@@ -40,7 +40,8 @@
       <p class="mb-4 ">
         An OTP has been sent to your email. Please enter the OTP to continue.
       </p>
-      <form>
+      <form action="" method="post">
+        {% csrf_token %}
         <div class="mb-4">
           <label for="otp" class="block  mb-2 font-semibold"
             >OTP</label
@@ -60,7 +61,7 @@
           <input
             type="password"
             id="password"
-            name="password"
+            name="new_password"
             class="w-full  p-2 border hover:border-red-500 rounded-md"
             placeholder="********"
           />
@@ -72,7 +73,7 @@
           <input
             type="password"
             id="cpassword"
-            name="cpassword"
+            name="confirm_password"
             class="w-full  p-2 border hover:border-red-500 rounded-md"
             placeholder="********"
           />

@@ -31,7 +31,7 @@ def login_view(request):
 
 def forgot_password_view(request):
     if request.method == 'POST':
-        email = request.POST['email']
+        email = request.POST.get('email')
         try:
             employee = Employee.objects.get(email=email)
             # Generate a random OTP
@@ -56,6 +56,7 @@ def forgot_password_view(request):
 
             # Store the OTP in session for later verification
             request.session['reset_otp'] = otp
+            request.session['email'] = email
             messages.success(
                 request, 'OTP sent to your email. Please check your inbox.')
             return render(request, 'otp-verification.html')
@@ -68,6 +69,34 @@ def forgot_password_view(request):
 
 
 def otp_verification(request):
+    if request.method == 'POST':
+        otp = request.POST['otp']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+        reset_otp = request.session.get('reset_otp')
+        email = request.session.get('email')
+        print(otp, new_password, confirm_password, reset_otp, email)
+        if otp == reset_otp:
+            try:
+                employee = Employee.objects.get(email=email)
+            except Employee.DoesNotExist:
+                messages.error(request, 'Invalid email. Please try again.')
+                return render(request, 'otp-verification.html')
+            if new_password == confirm_password:
+                employee.password = new_password
+                employee.save()
+
+                del request.session['reset_otp']
+                del request.session['email']
+
+                messages.success(request, 'Password updated successfully.')
+                return redirect('login_view')  # Redirect to a success page
+            else:
+                messages.error(request, 'Password and Confirm Password do not match. Please try again.')
+                return render(request, 'otp-verification.html')
+        else:
+            messages.error(request, 'Invalid OTP. Please try again.')
+            return render(request, 'otp-verification.html')
     return render(request, 'otp-verification.html')
 
 
