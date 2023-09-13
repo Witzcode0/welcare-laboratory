@@ -40,7 +40,7 @@
       <p class="mb-4 ">
         An OTP has been sent to your email. Please enter the OTP to continue.
       </p>
-      <form action="" method="post">
+      <form action="{% url 'otp_verification' %}" method="post">
         {% csrf_token %}
         <div class="mb-4">
           <label for="otp" class="block  mb-2 font-semibold"
