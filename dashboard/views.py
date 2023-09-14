@@ -1,20 +1,28 @@
 from django.shortcuts import render
 from django.conf import settings
+
+from main.models import Employee
+
 import jwt
+
+
 # Create your views here.
 def dashboard_view(request):
-    print(request.session.get('employee_token'))
-    token = request.session.get('employee_token')
     try:
+        token = request.session.get('employee_token')
         secret_key = settings.SECRET_KEY
         decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
-        print(decoded_token)
+        employee = Employee.objects.get(employee_id=decoded_token['user_id'])
+        print(employee.first_name, employee.last_name, employee.email)
     except jwt.ExpiredSignatureError:
-        print("Token has expired.")
+        print("Your session has expired please login again !!!")
     except jwt.DecodeError:
         print("Token decoding failed.")
+    except Employee.DoesNotExist:
+        # Handle the case where the employee with the specified ID does not exist
+        print("Employee not found")
     context = {
-        'user':decoded_token
+        'employee':employee
     }
     return render(request, 'dashboard.html', context)
 
