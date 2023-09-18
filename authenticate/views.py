@@ -6,6 +6,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 from main.models import Employee
+from dashboard.decorators import authentication_required
 from .helpers import create_jwt_token, generate_otp
 
 
@@ -99,6 +100,13 @@ def otp_verification(request):
             return render(request, 'otp-verification.html')
     return render(request, 'otp-verification.html')
 
+@authentication_required
+def logout(request):
+    if 'employee_token' in request.session:
+        del request.session['employee_token']
+    request.session.save()
 
-
-
+    # Optionally, you can add a message to indicate successful logout
+    messages.success(request, 'You have been logged out.')
+    # Redirect to a page after logout, e.g., the home page.
+    return redirect('login_view')

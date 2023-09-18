@@ -482,11 +482,14 @@
           </nav>
           <!-- Sidebar footer -->
           <div class="flex-shrink-0 p-2 border-t max-h-14">
-            <button
-              class="flex items-center text-red-500 justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring"
-            >
-              <span>
-                <svg
+
+            <a
+                  href="{% url 'logout' %}"
+                  class="flex items-center py-4 px-2 space-x-2 rounded-md hover:bg-gray-100"
+                  :class="{'justify-center': !isSidebarOpen}"
+                >
+                  <span>
+                    <svg
                   class="w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -500,9 +503,11 @@
                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                   />
                 </svg>
-              </span>
-              <span :class="{'lg:hidden': !isSidebarOpen}"> Logout </span>
-            </button>
+                    
+                  </span>
+                  <span :class="{ 'lg:hidden': !isSidebarOpen }">logout</span>
+                </a>
+            
           </div>
         </aside>
 
@@ -921,9 +926,9 @@
                     <div
                       class="flex flex-col p-4 space-y-1 font-medium border-b"
                     >
-                      <span class="text-gray-800">Ahmed Kamel</span>
+                      <span class="text-gray-800">{{employee.first_name}} {{employee.last_name}}</span>
                       <span class="text-sm text-gray-400"
-                        >ahmed.kamel@example.com</span
+                        >{{employee.email}}</span
                       >
                     </div>
                     <ul class="flex flex-col p-2 my-2 space-y-1">
@@ -1001,7 +1006,7 @@
                     <div
                       class="flex items-center justify-center p-4 text-red-500 underline border-t"
                     >
-                      <a href="{% url 'maintainance_view' %}">Logout</a>
+                      <a href="{% url 'logout' %}">Logout</a>
                     </div>
                   </div>
                 </div>

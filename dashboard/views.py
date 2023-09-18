@@ -1,64 +1,52 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 
 from main.models import Employee
-
-import jwt
-
+from .decorators import authentication_required
 
 # Create your views here.
+@authentication_required
 def dashboard_view(request):
-    try:
-        token = request.session.get('employee_token')
-        secret_key = settings.SECRET_KEY
-        decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
-        employee = Employee.objects.get(employee_id=decoded_token['user_id'])
-        print(employee.first_name, employee.last_name, employee.email)
-    except jwt.ExpiredSignatureError:
-        print("Your session has expired please login again !!!")
-    except jwt.DecodeError:
-        print("Token decoding failed.")
-    except Employee.DoesNotExist:
-        # Handle the case where the employee with the specified ID does not exist
-        print("Employee not found")
+    # Your view logic here
     context = {
-        'employee':employee
+        'employee': request.employee,
     }
     return render(request, 'dashboard.html', context)
 
-
+@authentication_required
 def branch_view(request):
     return render(request, 'branch.html')
 
-
+@authentication_required
 def patients_view(request):
     return render(request, 'patients.html')
 
-
+@authentication_required
 def patient_details_view(request):
     return render(request, 'patient-details.html')
 
-
+@authentication_required
 def payments_view(request):
     return render(request, 'payments.html')
 
-
+@authentication_required
 def staff_view(request):
     return render(request, 'staff.html')
 
-
+@authentication_required
 def doctors_view(request):
     return render(request, 'doctors.html')
 
-
+@authentication_required
 def wallet_view(request):
     return render(request, 'wallet.html')
 
-
+@authentication_required
 def profile_view(request):
-    return render(request, 'profile.html')
+    pass
+    
 
-
+@authentication_required
 def notification_view(request):
     return render(request, 'notification.html')
 
