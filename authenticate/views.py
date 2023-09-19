@@ -110,3 +110,4 @@ def logout(request):
     messages.success(request, 'You have been logged out.')
     # Redirect to a page after logout, e.g., the home page.
     return redirect('login_view')
+

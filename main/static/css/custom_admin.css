@@ -1,0 +1,10 @@
+/* Override the "no icon" image in the admin */
+.icon-no::before {
+    content: "";
+    background-image: url("{% static 'image/icon-no.svg' %}");;
+    width: 24px; /* Adjust the width and height as needed */
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; /* Adjust the spacing as needed */
+}
