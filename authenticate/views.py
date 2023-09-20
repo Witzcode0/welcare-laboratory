@@ -23,6 +23,7 @@ def login_view(request):
             }
             token = create_jwt_token(payload=payload)
             request.session['employee_token'] = token
+            
             messages.success(request, 'Login successful!')
             return redirect('dashboard_view')
         except Employee.DoesNotExist:

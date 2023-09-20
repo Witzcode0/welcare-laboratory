@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
 
-from main.models import Employee
+from main.models import Employee,Permission
 from .decorators import authentication_required
 
 # Create your views here.
 @authentication_required
 def dashboard_view(request):
-    # Your view logic here
-    context = {
-        'employee': request.employee,
-    }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard.html')
+
 
 @authentication_required
 def branch_view(request):
@@ -43,15 +40,15 @@ def wallet_view(request):
 
 @authentication_required
 def profile_view(request):
-    pass
+    context = {
+        'employee': request.employee,
+    }
+    return render(request, 'profile.html')
     
 
 @authentication_required
 def notification_view(request):
     return render(request, 'notification.html')
-
-
-
 
 def maintainance_view(request):
     return render(request, 'maintainance.html')

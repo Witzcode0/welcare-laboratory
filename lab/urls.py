@@ -31,6 +31,7 @@ urlpatterns = [
     path('main/', include('main.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('employee/', include('employee.urls')),
+    path('patients/', include('patients.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

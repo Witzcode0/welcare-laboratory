@@ -2,7 +2,7 @@ import jwt
 from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib import messages
-from main.models import Employee
+from main.models import Employee, EmployeePermissionRelation
 
 def authentication_required(view_func):
     def wrapper(request, *args, **kwargs):
@@ -12,6 +12,13 @@ def authentication_required(view_func):
             decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
             employee = Employee.objects.get(employee_id=decoded_token['user_id'])
             request.employee = employee  # Store the authenticated employee in the request object
+            
+            # Retrieve related data from EmployeePermissionRelation for the authenticated employee
+            employee_permissions = EmployeePermissionRelation.objects.filter(employee=employee)
+            
+            # Add the related data to the request object
+            request.employee_permissions = employee_permissions
+            
             return view_func(request, *args, **kwargs)
         except jwt.ExpiredSignatureError:
             messages.error(request, "Your session has expired. Please log in again.")
