@@ -7,36 +7,36 @@ Dashbaord
 <main class="flex-1 p-5 overflow-hidden overflow-y-scroll">
   <!-- Welcome message div -->
   <div class="">
-    <h1 class="text-2xl font-semibold mb-2">Welcome, <span  class="text-red-500">{{employee_data.first_name}} {{employee_data.last_name}}</span>!</h1>
+    <h1 class="text-2xl font-semibold mb-2">Welcome, <span  class="text-red-500">{{authenticated_employee.first_name}} {{authenticated_employee.last_name}}</span>!</h1>
     <p class="text-gray-600">As a valued member of our management team, your insights drive success. Let's
       achieve great things together!</p>
   </div>
-  {% for permission in employee_data.permissions %}
-  {% if permission.permission_name == "dashboard_card_view" and permission.permission_status %}
-  <div class="flex justify-center items-center my-5">
-    <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row md:space-x-4">
-      <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
 
-        <h3 class="text-lg font-semibold mb-2">Total Expense</h3>
-        <p class="text-red-500 text-xl font-semibold">$150,000</p>
-      </div>
-      <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
-
-        <h3 class="text-lg font-semibold mb-2">Total Patients</h3>
-        <p class="text-red-500 text-xl font-semibold">120</p>
-      </div>
-      <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
-        <h3 class="text-lg font-semibold mb-2">Reports</h3>
-        <p class="text-red-500 text-xl font-semibold">80</p>
-      </div>
-      <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg">
-        <h3 class="text-lg font-semibold mb-2">Profit</h3>
-        <p class="text-red-500 text-xl font-semibold">$50,000</p>
+  {% for permission in authenticated_employee.permissions %}
+    {% for key, value in permission.items %}
+        {% if key == "dashboard_card_view" and value == True %}
+    <div class="flex justify-center items-center my-5">
+      <div class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row md:space-x-4">
+        <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
+          <h3 class="text-lg font-semibold mb-2">Total Expense</h3>
+          <p class="text-red-500 text-xl font-semibold">$150,000</p>
+        </div>
+        <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
+          <h3 class="text-lg font-semibold mb-2">Total Patients</h3>
+          <p class="text-red-500 text-xl font-semibold">120</p>
+        </div>
+        <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg mb-4 md:mb-0">
+          <h3 class="text-lg font-semibold mb-2">Reports</h3>
+          <p class="text-red-500 text-xl font-semibold">80</p>
+        </div>
+        <div class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-2">Profit</h3>
+          <p class="text-red-500 text-xl font-semibold">$50,000</p>
+        </div>
       </div>
     </div>
-  </div>
- 
-  {% endif %}
+    {% endif %}
+    {% endfor %}
 {% endfor %}
 
   
