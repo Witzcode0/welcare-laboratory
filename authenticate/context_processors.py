@@ -11,6 +11,7 @@ def authenticated_employee(request):
             'id': request.employee.id,
             'first_name': request.employee.first_name,
             'last_name': request.employee.last_name,
+            'email': request.employee.email,
             'permissions': []
 
         }

@@ -12,6 +12,7 @@ from .helpers import create_jwt_token, generate_otp
 
 # Create your views here.
 def login_view(request):
+    print("here")
     if request.method == 'POST':
         employee_id = request.POST['employee_id']
         password = request.POST['password']
