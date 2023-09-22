@@ -31,7 +31,7 @@ class Permission(BaseModel):
     def __str__(self):
         return self.permission_name
 
-class Employee(models.Model):
+class Employee(BaseModel):
     employee_id = models.CharField(max_length=10, unique=True, editable=False)
     role = models.ForeignKey(EmployeeRole, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)

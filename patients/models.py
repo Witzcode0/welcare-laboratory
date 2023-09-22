@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils import timezone
+from django.db.models import F
+from datetime import datetime
 from main.models import BaseModel
 
 class Patient(BaseModel):
@@ -8,17 +9,37 @@ class Patient(BaseModel):
     age = models.PositiveIntegerField()
     mobile_number = models.CharField(max_length=15)
     conditions = models.TextField()
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
+    
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
-
 class Payment(BaseModel):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    payment_date = models.DateTimeField(default=timezone.now)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    total_payment = models.DecimalField(max_digits=10, decimal_places=2)
+    paid_payment = models.DecimalField(max_digits=10, decimal_places=2)
+    date_and_time = models.DateTimeField(auto_now_add=True) 
+    rest_payment = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
+    
+    STATUS_CHOICES = (
+        ('done', 'Done'),
+        ('partially', 'Partially'),
+        ('pending', 'Pending'),
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    def save(self, *args, **kwargs):
+        # Calculate rest payment
+        self.rest_payment = self.total_payment - self.paid_payment
+
+        # Determine the payment status
+        if self.paid_payment == self.total_payment:
+            self.status = 'done'
+        elif self.paid_payment > 0:
+            self.status = 'partially'
+        else:
+            self.status = 'pending'
+
+        super(Payment, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Payment of ${self.amount} by {self.patient.first_name} {self.patient.last_name}"
+        return f"Payment for {self.patient}"

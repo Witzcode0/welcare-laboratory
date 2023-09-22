@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'employee',
     'authenticate',
     'dashboard',
-    'patients'
+    'patients',
+    'doctors'
 ]
 
 MIDDLEWARE = [

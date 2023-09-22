@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Employee, EmployeeRole, Permission, EmployeePermissionRelation
+from .admin_pagination import admin_pagination
+
 
 # Change the site header
 admin.site.site_header = "Welcare Laboratory Management System"
@@ -7,10 +9,21 @@ admin.site.site_header = "Welcare Laboratory Management System"
 # Change the site title
 admin.site.site_title = "Welcare"
 
+
 @admin.register(EmployeeRole)
+@admin_pagination(per_page=5)
 class EmployeeRoleAdmin(admin.ModelAdmin):
-    list_display = ('role',)
-    # Add any other customization you need for the EmployeeRole model admin.
+    list_display = ('role',)  # Display the 'role' field in the list view
+    list_filter = ('role',)   # Add a filter sidebar for 'role'
+    search_fields = ('role',) # Add a search bar for 'role'
+    ordering = ('role',)
+    
+    fieldsets = (
+        ('Role Information', {
+            'fields': ('role',),
+        }),
+    )
+
 
 @admin.register(Permission)
 class PermissionAdmin(admin.ModelAdmin):
@@ -22,6 +35,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ('employee_id', 'first_name', 'last_name', 'email', 'is_active', 'is_staff')
     list_filter = ('is_active', 'is_staff', 'role')
     search_fields = ('employee_id', 'first_name', 'last_name', 'email', 'mobile')
+    list_editable = ('first_name', 'last_name', 'email')
     # Add any other customization you need for the Employee model admin.
 
 @admin.register(EmployeePermissionRelation)
