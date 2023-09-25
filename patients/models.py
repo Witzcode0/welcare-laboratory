@@ -16,14 +16,14 @@ class Patient(BaseModel):
 class Payment(BaseModel):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     total_payment = models.DecimalField(max_digits=10, decimal_places=2)
-    paid_payment = models.DecimalField(max_digits=10, decimal_places=2)
+    paid_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True)
     date_and_time = models.DateTimeField(auto_now_add=True) 
     rest_payment = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
     
     STATUS_CHOICES = (
-        ('done', 'Done'),
-        ('partially', 'Partially'),
-        ('pending', 'Pending'),
+        ('paid', 'paid'),
+        ('partially', 'partially'),
+        ('pending', 'pending'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
@@ -33,13 +33,10 @@ class Payment(BaseModel):
 
         # Determine the payment status
         if self.paid_payment == self.total_payment:
-            self.status = 'done'
+            self.status = 'paid'
         elif self.paid_payment > 0:
-            self.status = 'partially'
+            self.status = 'partial'  # Corrected status value
         else:
             self.status = 'pending'
 
         super(Payment, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Payment for {self.patient}"

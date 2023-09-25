@@ -2,13 +2,33 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 
 from main.models import Employee,Permission
+from patients.models import Patient, Payment
 from .decorators import authentication_required
+
+from datetime import datetime
+
 
 # Create your views here.
 @authentication_required
 def dashboard_view(request):
-    return render(request, 'dashboard.html')
-
+    # Get the current date
+    current_date = datetime.now().date()
+    current_day = datetime.now().strftime("%A")
+    
+    # Retrieve payments for the current date
+    payments_today = Payment.objects.filter(date_and_time__date=current_date)
+    data = []
+    for payment in payments_today:
+        payment_data = {
+            
+            'patient_name': f"{payment.patient.first_name} {payment.patient.last_name}",
+            'mobile_number': f"{payment.patient.mobile_number}",
+            'payment_status': payment.status,
+            'conditions' :payment.patient.conditions
+        }
+        data.append(payment_data)
+    print(data)
+    return render(request, 'dashboard.html', {'data': data, 'current_date':current_date, 'current_day':current_day})
 
 @authentication_required
 def branch_view(request):

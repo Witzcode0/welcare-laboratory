@@ -16,7 +16,7 @@ class DoctorAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('profile',)  # Make the profile field read-only in the admin panel
+    # readonly_fields = ('profile',)  # Make the profile field read-only in the admin panel
 
     def has_delete_permission(self, request, obj=None):
         return False  # Disable the ability to delete doctor records in the admin panel
