@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group, User
 from .models import Employee, EmployeeRole, Permission, EmployeePermissionRelation
 from .admin_pagination import admin_pagination
 
@@ -9,6 +10,8 @@ admin.site.site_header = "Welcare Laboratory Management System"
 # Change the site title
 admin.site.site_title = "Welcare"
 
+admin.site.unregister(Group)
+admin.site.unregister(User)
 
 @admin.register(EmployeeRole)
 @admin_pagination(per_page=5)
