@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Patient, Payment
 from django.contrib import messages
 from dashboard.decorators import authentication_required
+
+import json
 # Create your views here.
 
 @authentication_required
@@ -37,3 +39,4 @@ def add_patient(request):
         success_message = f'Patient {first_name} {last_name} has been added successfully.'
         messages.success(request, success_message)
         return redirect('dashboard_view')
+    

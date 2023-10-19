@@ -7,6 +7,8 @@ from .decorators import authentication_required
 
 from datetime import datetime
 
+import json
+
 
 # Create your views here.
 @authentication_required
@@ -36,7 +38,11 @@ def branch_view(request):
 
 @authentication_required
 def patients_view(request):
-    return render(request, 'patients.html')
+    patients = Patient.objects.all()
+    patient_data = [{'id': patient.id, 'name': f'{patient.first_name} {patient.last_name}', 'mobile': patient.mobile_number, 'age': patient.age, 'condition': patient.conditions} for patient in patients]
+    patient_data_json = json.dumps(patient_data)
+    print(patient_data_json)
+    return render(request, 'patients.html', {'patients': patients, 'patient_data_json': patient_data_json})
 
 @authentication_required
 def patient_details_view(request):

@@ -4,21 +4,22 @@
 <main class="flex-1 p-5 overflow-hidden overflow-y-scroll">
   <!-- Welcome message div -->
   <div class="">
-    <h1 class="text-2xl font-semibold mb-2">
+    <h1 class="text-l font-semibold mb-2">
       Welcome,
       <span class="text-red-500"
         >{{authenticated_employee.first_name}}
         {{authenticated_employee.last_name}}</span
       >!
     </h1>
-    <p class="text-gray-600">
+    <p class="text-gray-600 text-sm">
       As a valued member of our management team, your insights drive success.
       Let's achieve great things together!
     </p>
   </div>
 
-  {% for permission in authenticated_employee.permissions %} {% for key, value
-  in permission.items %} {% if key == "dashboard_card_view" and value == True %}
+  {% for permission in authenticated_employee.permissions %} 
+  {% for key, value in permission.items %} 
+  {% if key == "dashboard_card_view" and value == True %}
   <div class="flex justify-center items-center my-5">
     <div
       class="w-full bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row md:space-x-4"
@@ -41,7 +42,9 @@
       </div>
     </div>
   </div>
-  {% endif %} {% endfor %} 
+  {% endif %} 
+  {% endfor %} 
+  {% endfor %} 
 
   <div class="flex justify-center items-center my-5">
     <div
@@ -84,6 +87,30 @@
                 placeholder="18"
               />
             </div>
+            <div class="mb-4">
+              <label for="gender" class="block font-medium">Gender</label>
+              <select
+                id="gender"
+                name="gender"
+                class="w-full px-4 py-2 border rounded"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="report_type" class="block font-medium">Report Type</label>
+              <select
+                id="report_type"
+                name="report_type"
+                class="w-full px-4 py-2 border rounded"
+              >
+                <option value="type1">Report Type 1</option>
+                <option value="type2">Report Type 2</option>
+                <option value="type3">Report Type 3</option>
+              </select>
+            </div>            
             <div class="mb-4">
               <label for="mobile" class="block font-medium">Mobile</label>
               <input
